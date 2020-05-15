@@ -42,8 +42,7 @@ for(int i=0;i<x+1;i++){
 				cout<<"# ";
 			}
 			if(matrix[i][j]==1){
-				
-			cout<<" * ";	
+				cout<<" * ";	
 			}else{
 				cout<<"   ";
 			}
@@ -132,126 +131,79 @@ void juego(int**matrix ,int x, int y,int turnos){
 			aux[i][j]=0;
 		}
 	}
-	int c=0;
-	cout<<"turnos: "<<turnos<<endl;
-while(c<turnos){
+	for(int inicio=0;inicio<turnos;inicio++){	
 		int cont=0;
-		for(int j=1;j<x;j++){
-			for(int m=1;m<y;m++){
-				if(m<=y-1){
-					if(matrix[j][m+1]==1){
-						cont++;
-						//cout<<"conto 1"<<endl;
+		for(int i=1;i<x;i++){
+			for(int j=0;j<y;j++){
+				
+				if(y>0){
+					if(matrix[i--][j]==1){
+						cont++;	
 					}
 				}
-				if(j<=x-1){
-					if(matrix[j+1][m]==1){
-						cont++;
-						//cout<<"conto 2"<<endl;
-					}
+				if(i>0&&j<y-1){
+				if(matrix[i--][j++]==1){
+					cont++;
 				}
-				if(j<=x-1 && m<=y-1){
-					if(matrix[j+1][m+1]==1){
-						cont++;
-						//cout<<"conto 3"<<endl;
-					}
+			}
+				if(i>0 &&j>0){
+			
+				if(matrix[i--][j--]==1){
+					cont++;
 				}
-				if(j>0){
-					if(matrix[j-1][m+1]==1){
-						cont++;
-					//	cout<<"conto 4"<<endl;
-					}
-					if(matrix[j-1][m]){
-						cont++;
-						//cout<<"conto 5"<<endl;
-					}
+			}
+				
+				if(matrix[i][j++]==1 && j<y-1){
+					cont++;
 				}
-				if(m>0){
-					if(matrix[j-1][m-1]){
-						cont++;
-					//	cout<<"conto 6"<<endl;
-					}
-					if(matrix[j][m-1]==1){
-						cont++;
-						//cout<<"conto 7"<<endl;
-					}
-				}
-				if(j<x-1&&m>0){
-					if(matrix[j+1][m-1]==1){
-						cont++;
-						//cout<<"conto 8"<<endl;
-					}
-				}
-				if(cont<2&&matrix[j][m]==1){
-					aux[j][m]=0;
-					cout<<"muere"<<endl;
-				}
-				if((cont==2||cont==3) && matrix[j][m]==1){
-					aux[j][m]=1;
-					cout<<"vive"<<endl;
-				}
-				if(cont>3&&matrix[j][m]==1){
-					aux[j][m]=0;
-					cout<<"muere"<<endl;
-				}
-				if(cont==3&&matrix[j][m]==0){
-					aux[j][m]=1;
-					cout<<"vive"<<endl;
+				if(matrix[i][j--]==1&& j>0){
+					cont++;
 				}
 				
+				if(i<x-1 &&j<y-1){
+					if(matrix[i++][j++]==1){
+					cont++;
+					}	
+				}
+				
+				if(i<x-1){
+				if(matrix[i++][j]==1){
+					cont++;
+				}
+				}
+				if(i<x-1 &&j>0){
+				if(matrix[i++][j--]==1){
+					cont++;
+				}
+			}
+				if(cont<2&&matrix[i][j]==1){
+					aux[i][j]=0;
+				}
+				if((cont==2||cont==3) && matrix[i][j]==1){
+					aux[i][j]=1;
+				}
+				if(cont>3&&matrix[i][j]==1){
+					aux[i][j]=0;
+				}
+				if(cont==3&&matrix[i][j]==0){
+					aux[i][j]=1;
+				}
+			
 				cont=0;	
 			}
 		}
-		
-		for(int e=0;e<x;e++){
+				
+		imprimir(aux,x,y);
+		cin.ignore();
+	}
+	cout<<"TERMINO"<<endl;
+}
+
+/*	for(int e=0;e<x;e++){
 			for(int r=0;r<y;r++){
 				matrix[e][r]=aux[e][r];
 				aux[e][r]=0;
 				}
-		}			
-		imprimir(matrix,x,y);
-		c++;
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		}*/
 
 
