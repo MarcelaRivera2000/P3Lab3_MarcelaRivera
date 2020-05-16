@@ -36,6 +36,7 @@ void imprimir(int ** matrix,int x,int y){
 for(int i=0;i<x+1;i++){
 	cout<<"#  ";
 }
+cout<<endl;
 	for(int i=0;i<x;i++){
 		for(int j=0;j<y;j++){
 			if(j==0){
@@ -43,7 +44,7 @@ for(int i=0;i<x+1;i++){
 			}
 			if(matrix[i][j]==1){
 				cout<<" * ";	
-			}else{
+			}else if(matrix[i][j]==0){
 				cout<<"   ";
 			}
 		}
@@ -80,7 +81,6 @@ void ejercicio1(){
 		
 		}
 	}
-	imprimir(matrix,x,y);
 	juego(matrix,x,y,turnos);	
 }
 
@@ -90,7 +90,7 @@ cout<<"Ingrese la cantidad de turnos"<<endl<<": ";
 cin>>turnos;
 int x = 20;
 int y = 20;
-int temp_mat [20][20] = {
+	int temp_mat [20][20] = {
 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0},
 {0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0},
@@ -118,8 +118,7 @@ int temp_mat [20][20] = {
 		for(int j = 0; j < x ; j++){
 			mat[i][j] = temp_mat[i][j];
 		}
-	}
-	imprimir(mat,x,y);	
+	}	
 	juego(mat,x,y,turnos);
 }
 
@@ -131,79 +130,96 @@ void juego(int**matrix ,int x, int y,int turnos){
 			aux[i][j]=0;
 		}
 	}
+	
+	int cont;
 	for(int inicio=0;inicio<turnos;inicio++){	
-		int cont=0;
+		cout<<"matrix"<<endl;
+		imprimir(matrix,x,y);
 		for(int i=1;i<x;i++){
 			for(int j=0;j<y;j++){
-				
-				if(y>0){
-					if(matrix[i--][j]==1){
+				cont=0;	
+				if(j>0){
+					if(matrix[i-1][j]==1){
 						cont++;	
+					//	cout<<"kpex1 "<< matrix[i-1][j]<<endl;
 					}
 				}
 				if(i>0&&j<y-1){
-				if(matrix[i--][j++]==1){
+				if(matrix[i-1][j+1]==1){
 					cont++;
+				//	cout<<"kpex2 "<< matrix[i-1][j+1]<<endl;
 				}
 			}
+
 				if(i>0 &&j>0){
 			
-				if(matrix[i--][j--]==1){
+				if(matrix[i-1][j-1]==1){
 					cont++;
+				//	cout<<"kpex3 "<< matrix[i-1][j-1]<<endl;
 				}
-			}
-				
-				if(matrix[i][j++]==1 && j<y-1){
+			}				
+				if(matrix[i][j+1]==1 && j<y-1){
 					cont++;
+				//	cout<<"kpex4 "<< matrix[i][j+1]<<endl;
 				}
-				if(matrix[i][j--]==1&& j>0){
+				if(matrix[i][j-1]==1&& j>0){
 					cont++;
+				//	cout<<"kpex5 "<< matrix[i][j-1]<<endl;
 				}
-				
 				if(i<x-1 &&j<y-1){
-					if(matrix[i++][j++]==1){
+					if(matrix[i+1][j+1]==1){
 					cont++;
+				//	cout<<"kpex6 "<< matrix[i+1][j+1]<<endl;
 					}	
 				}
 				
 				if(i<x-1){
-				if(matrix[i++][j]==1){
+				if(matrix[i+1][j]==1){
 					cont++;
+				//	cout<<"kpex7 "<< matrix[i+1][j]<<endl;
 				}
 				}
 				if(i<x-1 &&j>0){
-				if(matrix[i++][j--]==1){
+				if(matrix[i+1][j-1]==1){
 					cont++;
+				//	cout<<"kpex8 "<< matrix[i+1][j-1]<<endl;
 				}
+				
 			}
-				if(cont<2&&matrix[i][j]==1){
-					aux[i][j]=0;
-				}
-				if((cont==2||cont==3) && matrix[i][j]==1){
-					aux[i][j]=1;
-				}
-				if(cont>3&&matrix[i][j]==1){
-					aux[i][j]=0;
-				}
-				if(cont==3&&matrix[i][j]==0){
-					aux[i][j]=1;
-				}
 			
-				cont=0;	
+		//	cout<<"cont: "<<cont<<" a ver: "<<matrix[i][j]<<endl;
+				if(matrix[i][j]==1){
+					if(cont<2){
+						aux[i][j]=0;
+				}
+				if(cont==2||cont==3){
+					aux[i][j]=1;
+				}
+				if(cont>3){
+					aux[i][j]=0;
+				}
+			}else{
+				if(cont==3){
+				aux[i][j]=1;
+			}
+			}
 			}
 		}
+		cout<<endl;
+		for(int e=0;e<x;e++){
+			for(int r=0;r<y;r++){
+				matrix[e][r]=aux[e][r];
 				
-		imprimir(aux,x,y);
+				}
+		}		
+		
 		cin.ignore();
 	}
 	cout<<"TERMINO"<<endl;
 }
 
-/*	for(int e=0;e<x;e++){
-			for(int r=0;r<y;r++){
-				matrix[e][r]=aux[e][r];
-				aux[e][r]=0;
-				}
-		}*/
+
+
+
 
 
